@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-customer',
-  templateUrl: './customer.component.html',
-  styleUrls: ['./customer.component.css']
+  selector: 'app-list-customers',
+  templateUrl: './list-customers.component.html',
+  styleUrls: ['./list-customers.component.css']
 })
 
-export class CustomerComponent implements OnInit {
+export class ListCustomersComponent implements OnInit {
 
   customers: any;
 
