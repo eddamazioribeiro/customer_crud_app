@@ -10,6 +10,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 export class ListCustomersComponent implements OnInit {
 
   customers: any;
+  nome = '';
 
   constructor(private http: HttpClient) { }
 

@@ -1,6 +1,14 @@
 <h3>
   Clientes
 </h3>
+<div>
+  <input
+    type='text'
+    class='form-control mr-2'
+    placeholder='Digite o nome'
+    [(ngModel)]='nome'/>
+    <h3>Nome: {{nome}}</h3>
+</div>
 <div *ngFor='let customer of customers'>
     <p>
       Nome: {{customer.name}}
@@ -9,7 +17,7 @@
       Email: {{customer.eMail}}
     </p>   
     <p>
-      Cadastrado em: {{customer.createdAt}}
+      Cadastrado em: {{customer.createdAt | date: 'dd/MM/yyyy'}}
     </p>
     <hr>    
 </div>
