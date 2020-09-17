@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { CustomerService } from '../_services/customer.service';
 
 @Component({
   selector: 'app-list-customers',
@@ -10,16 +10,15 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 export class ListCustomersComponent implements OnInit {
 
   customers: any;
-  nome = '';
 
-  constructor(private http: HttpClient) { }
+  constructor(private customerService: CustomerService) { }
 
   ngOnInit() {
     this.getCustomers();
   }
 
   getCustomers(): any {
-    this.http.get('http://localhost:5000/api/customer/list')
+    this.customerService.getCustomers()
       .subscribe(
         res => {
           this.customers = res;
