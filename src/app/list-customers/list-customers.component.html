@@ -9,12 +9,23 @@
       <label>Nome</label>
       <input
         type="text"
-        class="form-control is-invalid"
+        class="form-control"
+        [ngClass]="{'is-invalid': registerForm.get('name').errors
+          && registerForm.get('name').touched}"
         placeholder="informe seu nome"
         formControlName="name">
-      <div class="invalid-feedback">
+      <div *ngIf="registerForm.get('name').hasError('required')
+        && registerForm.get('name').touched" class="invalid-feedback">
         O nome é obrigatório
       </div>
+      <div *ngIf="registerForm.get('name').hasError('minlength')
+        && registerForm.get('name').touched" class="invalid-feedback">
+        O nome deve conter no mínimo 4 caracteres
+      </div>
+      <div *ngIf="registerForm.get('name').hasError('maxlength')
+        && registerForm.get('name').touched" class="invalid-feedback">
+        O nome deve conter no máximo 50 caracteres
+      </div>            
     </div>
   </div>  
   <div class="form-row">
@@ -22,18 +33,27 @@
       <label>Email</label>
       <input
         type="text"
-        class="form-control is-invalid"
+        class="form-control"
+        [ngClass]="{'is-invalid': registerForm.get('eMail').errors
+          && registerForm.get('eMail').touched}"
         placeholder="informe seu email (ex.: joao@email.com)"
         formControlName="eMail">
-        <div class="invalid-feedback">
-          O email é obrigatório
-        </div>        
+      <div *ngIf="registerForm.get('eMail').hasError('required')
+        && registerForm.get('eMail').touched" class="invalid-feedback">
+        O email deve ser informado
+      </div>         
+      <div *ngIf="registerForm.get('eMail').hasError('email')
+        && registerForm.get('eMail').touched" class="invalid-feedback">
+        Email inválido
+      </div>           
     </div>
     <div class="form-group col-md-4">
       <label>Data de Nascimento</label>
       <input
         type="date"
-        class="form-control is-invalid"
+        class="form-control"
+        [ngClass]="{'is-invalid': registerForm.get('birthDate').errors
+          && registerForm.get('birthDate').touched}"
         placeholder=""
         formControlName="birthDate">
         <div class="invalid-feedback">
