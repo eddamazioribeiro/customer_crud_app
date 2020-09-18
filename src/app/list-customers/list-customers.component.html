@@ -1,6 +1,33 @@
 <h3>
   Clientes
 </h3>
+
+<form [formGroup]="registerForm">
+  <h4>Formulário de Cadastro</h4>
+  <div class="form-row">
+    <div class="form-group col-md-12">
+      <label>Nome</label>
+      <input type="text" class="form-control" formControlName="name">
+    </div>
+  </div>  
+  <div class="form-row">
+    <div class="form-group col-md-8">
+      <label>Email</label>
+      <input type="text" class="form-control" formControlName="eMail">
+    </div>
+    <div class="form-group col-md-4">
+      <label>Data de Nascimento</label>
+      <input type="text" class="form-control" formControlName="birthDate">
+    </div>    
+  </div>
+</form>
+<br>
+<button class="btn btn-primary" (click)="save()">
+  Salvar
+</button>
+<br>
+<hr>
+
 <div *ngFor='let customer of customers'>
     <p>
       Nome: {{customer.name}}

@@ -3,6 +3,7 @@ export interface Address {
     street: string;
     number: number;
     city: string;
+    state: string;
     zipCode: string;
     complement: string;
     mainAddress: boolean;
