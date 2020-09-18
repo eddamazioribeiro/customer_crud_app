@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from '../_services/customer.service';
 import { Customer } from '../_models/Customer';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-list-customers',
@@ -27,9 +27,18 @@ export class ListCustomersComponent implements OnInit {
 
   formValidation() {
     this.registerForm = new FormGroup({
-      name: new FormControl(),
-      eMail: new FormControl(),
-      birthDate: new FormControl()
+      name: new FormControl('', [
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(50)
+      ]),
+      eMail: new FormControl('', [
+        Validators.required,
+        Validators.email
+      ]),
+      birthDate: new FormControl('', [
+        Validators.required
+      ])
     });
   }
 

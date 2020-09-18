@@ -7,17 +7,38 @@
   <div class="form-row">
     <div class="form-group col-md-12">
       <label>Nome</label>
-      <input type="text" class="form-control" formControlName="name">
+      <input
+        type="text"
+        class="form-control is-invalid"
+        placeholder="informe seu nome"
+        formControlName="name">
+      <div class="invalid-feedback">
+        O nome é obrigatório
+      </div>
     </div>
   </div>  
   <div class="form-row">
     <div class="form-group col-md-8">
       <label>Email</label>
-      <input type="text" class="form-control" formControlName="eMail">
+      <input
+        type="text"
+        class="form-control is-invalid"
+        placeholder="informe seu email (ex.: joao@email.com)"
+        formControlName="eMail">
+        <div class="invalid-feedback">
+          O email é obrigatório
+        </div>        
     </div>
     <div class="form-group col-md-4">
       <label>Data de Nascimento</label>
-      <input type="text" class="form-control" formControlName="birthDate">
+      <input
+        type="date"
+        class="form-control is-invalid"
+        placeholder=""
+        formControlName="birthDate">
+        <div class="invalid-feedback">
+          A data de nascimento é obrigatória
+        </div>        
     </div>    
   </div>
 </form>
