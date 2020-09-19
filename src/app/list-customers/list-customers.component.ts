@@ -13,6 +13,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 export class ListCustomersComponent implements OnInit {
 
   customers: Customer[];
+  customer: Customer;
   registerForm: FormGroup;
   // modalRef: BsModalRef;
 
@@ -27,11 +28,22 @@ export class ListCustomersComponent implements OnInit {
     this.getCustomers();
   }
 
-  save() {
+  createCustomer(template: any) {
+    if (this.registerForm.valid) {
+      this.customer = Object.assign({}, this.registerForm.value);
+      this.customerService.createCustomer(this.customer);
+
+      template.hide();
+      this.getCustomers();
+    }
+  }
+
+  editCustomer() {
 
   }
 
-  openModal(cusomterId: number, template: any) {
+  openModal(customerId: number, template: any) {
+    this.registerForm.reset();
     template.show();
     console.log('abre modal');
   }

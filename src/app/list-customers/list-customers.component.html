@@ -24,8 +24,14 @@
       Email: {{customer.eMail}}
     </p>   
     <p>
+      Nascido em: {{customer.birthDate | date: 'dd/MM/yyyy'}}
+    </p>    
+    <p>
       Cadastrado em: {{customer.createdAt | date: 'dd/MM/yyyy'}}
     </p>
+    <p>
+      Última atualização em: {{customer.createdAt | date: 'dd/MM/yyyy hh:mm a'}}
+    </p>    
     <div class="bnt-group">
       <button
         class="btn btn-sm btn-secondary mr-2"
@@ -133,7 +139,7 @@
         <button
           class="btn btn-primary ml-auto"
           [disabled]="!registerForm.valid"
-          (click)="save()">
+          (click)="createCustomer()">
             <i class="fa fa-home"></i>&nbsp;
             Salvar alterações
         </button>        

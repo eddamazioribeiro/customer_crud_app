@@ -22,4 +22,25 @@ export class CustomerService {
   getAllCustomers(): Observable<Customer[]> {
     return this.http.get<Customer[]>(`${this.baseURL}/list`);
   }
+
+  createCustomer(customer: Customer): boolean {
+    let success: boolean;
+    
+    this.http.post(`${this.baseURL}`, customer)
+      .subscribe(
+        data => {
+          if (data) {
+            success = true;
+          } else {
+            success = false;
+          }
+        },
+        error => {
+          console.log(error);
+          success = false;
+        }
+      );
+
+    return success;
+  }
 }
