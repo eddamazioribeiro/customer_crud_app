@@ -9,11 +9,13 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ListCustomersComponent } from './list-customers/list-customers.component';
+import { ListAddressesComponent } from './list-addresses/list-addresses.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ListCustomersComponent
+    ListCustomersComponent,
+    ListAddressesComponent
    ],
   imports: [
     BrowserModule,
