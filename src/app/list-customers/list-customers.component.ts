@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from '../_services/customer.service';
 import { Customer } from '../_models/Customer';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-list-customers',
@@ -14,7 +14,10 @@ export class ListCustomersComponent implements OnInit {
   customers: Customer[];
   registerForm: FormGroup;
 
-  constructor(private customerService: CustomerService) { }
+  constructor(
+      private customerService: CustomerService,
+      private fb: FormBuilder
+    ) { }
 
   ngOnInit() {
     this.formValidation();
@@ -26,19 +29,19 @@ export class ListCustomersComponent implements OnInit {
   }
 
   formValidation() {
-    this.registerForm = new FormGroup({
-      name: new FormControl('', [
+    this.registerForm = this.fb.group({
+      name: ['', [
         Validators.required,
         Validators.minLength(4),
         Validators.maxLength(50)
-      ]),
-      eMail: new FormControl('', [
+      ]],
+      eMail: ['', [
         Validators.required,
         Validators.email
-      ]),
-      birthDate: new FormControl('', [
+      ]],
+      birthDate: ['', [
         Validators.required
-      ])
+      ]]
     });
   }
 

@@ -1,7 +1,7 @@
 <h3>
   Clientes
 </h3>
-
+<hr>
 <form [formGroup]="registerForm">
   <h4>Formulário de Cadastro</h4>
   <div class="form-row">
@@ -61,6 +61,12 @@
         </div>        
     </div>    
   </div>
+  <p>
+    Form value: {{registerForm.value | json}}
+  </p>
+  <p>
+    Form status: {{registerForm.status | json}}
+  </p>
 </form>
 <br>
 <button class="btn btn-primary" (click)="save()">
@@ -68,7 +74,6 @@
 </button>
 <br>
 <hr>
-
 <div *ngFor='let customer of customers'>
     <p>
       Nome: {{customer.name}}
