@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { CustomerService } from '../_services/customer.service';
 import { Customer } from '../_models/Customer';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-list-customers',
@@ -13,9 +14,11 @@ export class ListCustomersComponent implements OnInit {
 
   customers: Customer[];
   registerForm: FormGroup;
+  // modalRef: BsModalRef;
 
   constructor(
       private customerService: CustomerService,
+      private modalService: BsModalService,
       private fb: FormBuilder
     ) { }
 
@@ -26,6 +29,11 @@ export class ListCustomersComponent implements OnInit {
 
   save() {
 
+  }
+
+  openModal(cusomterId: number, template: any) {
+    template.show();
+    console.log('abre modal');
   }
 
   formValidation() {

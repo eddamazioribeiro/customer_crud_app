@@ -1,72 +1,20 @@
-<h3>
-  Clientes
-</h3>
-<hr>
-<form [formGroup]="registerForm">
-  <h4>Formulário de Cadastro</h4>
-  <div class="form-row">
-    <div class="form-group col-md-12">
-      <label>Nome</label>
-      <input
-        type="text"
-        class="form-control"
-        [ngClass]="{'is-invalid': registerForm.get('name').errors
-          && registerForm.get('name').touched}"
-        placeholder="informe seu nome"
-        formControlName="name">
-      <div *ngIf="registerForm.get('name').hasError('required')
-        && registerForm.get('name').touched" class="invalid-feedback">
-        O nome é obrigatório
-      </div>
-      <div *ngIf="registerForm.get('name').hasError('minlength')
-        && registerForm.get('name').touched" class="invalid-feedback">
-        O nome deve conter no mínimo 4 caracteres
-      </div>
-      <div *ngIf="registerForm.get('name').hasError('maxlength')
-        && registerForm.get('name').touched" class="invalid-feedback">
-        O nome deve conter no máximo 50 caracteres
-      </div>            
-    </div>
-  </div>  
-  <div class="form-row">
-    <div class="form-group col-md-8">
-      <label>Email</label>
-      <input
-        type="text"
-        class="form-control"
-        [ngClass]="{'is-invalid': registerForm.get('eMail').errors
-          && registerForm.get('eMail').touched}"
-        placeholder="informe seu email (ex.: joao@email.com)"
-        formControlName="eMail">
-      <div *ngIf="registerForm.get('eMail').hasError('required')
-        && registerForm.get('eMail').touched" class="invalid-feedback">
-        O email deve ser informado
-      </div>         
-      <div *ngIf="registerForm.get('eMail').hasError('email')
-        && registerForm.get('eMail').touched" class="invalid-feedback">
-        Email inválido
-      </div>           
-    </div>
-    <div class="form-group col-md-4">
-      <label>Data de Nascimento</label>
-      <input
-        type="date"
-        class="form-control"
-        [ngClass]="{'is-invalid': registerForm.get('birthDate').errors
-          && registerForm.get('birthDate').touched}"
-        placeholder=""
-        formControlName="birthDate">
-        <div class="invalid-feedback">
-          A data de nascimento é obrigatória
-        </div>        
-    </div>    
+<div class="d-flex">
+  <div>
+    <button
+      class="btn btn-outline-success"
+      (click)="openModal(null, template)">
+      <i class="fa fa-plus-circle"></i>&nbsp;
+        Novo cliente
+    </button>
   </div>
-</form>
-<br>
-<button class="btn btn-primary" (click)="save()">
-  Salvar
-</button>
-<br>
+</div>
+<!-- list customers -->
+<hr>
+<div>
+  <h3>
+    Clientes
+  </h3>
+</div>
 <hr>
 <div *ngFor='let customer of customers'>
     <p>
@@ -80,7 +28,14 @@
     </p>
     <div class="bnt-group">
       <button
-        class="btn btn-sm btn-outline-primary mr-2" tooltip="Editar">
+        class="btn btn-sm btn-secondary mr-2"
+        tooltip="Endereços">
+        <i class="fa fa-home"></i>
+      </button>
+      <button
+        class="btn btn-sm btn-outline-primary mr-2"
+        tooltip="Editar"
+        (click)="openModal(customer.id, template)">
         <i class="fa fa-edit"></i>
       </button>
       <button
@@ -89,4 +44,100 @@
       </button>
     </div>
     <hr>    
+</div>
+<!-- modal -->
+<div bsModal #template="bs-modal" class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="dialog-sizes-name1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4
+          id="dialog-sizes-name1"
+          class="modal-title pull-left">
+          Cliente
+        </h4>
+        <button type="button" class="close pull-right" (click)="template.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- [begin] Customer form -->
+        <form [formGroup]="registerForm">
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <label>Nome</label>
+              <input
+                type="text"
+                class="form-control"
+                [ngClass]="{'is-invalid': registerForm.get('name').errors
+                  && registerForm.get('name').touched}"
+                placeholder="informe seu nome"
+                formControlName="name">
+              <div *ngIf="registerForm.get('name').hasError('required')
+                && registerForm.get('name').touched" class="invalid-feedback">
+                O nome é obrigatório
+              </div>
+              <div *ngIf="registerForm.get('name').hasError('minlength')
+                && registerForm.get('name').touched" class="invalid-feedback">
+                O nome deve conter no mínimo 4 caracteres
+              </div>
+              <div *ngIf="registerForm.get('name').hasError('maxlength')
+                && registerForm.get('name').touched" class="invalid-feedback">
+                O nome deve conter no máximo 50 caracteres
+              </div>            
+            </div>
+          </div>  
+          <div class="form-row">
+            <div class="form-group col-md-8">
+              <label>Email</label>
+              <input
+                type="text"
+                class="form-control"
+                [ngClass]="{'is-invalid': registerForm.get('eMail').errors
+                  && registerForm.get('eMail').touched}"
+                placeholder="informe seu email (ex.: joao@email.com)"
+                formControlName="eMail">
+              <div *ngIf="registerForm.get('eMail').hasError('required')
+                && registerForm.get('eMail').touched" class="invalid-feedback">
+                O email deve ser informado
+              </div>         
+              <div *ngIf="registerForm.get('eMail').hasError('email')
+                && registerForm.get('eMail').touched" class="invalid-feedback">
+                Email inválido
+              </div>           
+            </div>
+            <div class="form-group col-md-4">
+              <label>Data de Nascimento</label>
+              <input
+                type="date"
+                class="form-control"
+                [ngClass]="{'is-invalid': registerForm.get('birthDate').errors
+                  && registerForm.get('birthDate').touched}"
+                placeholder=""
+                formControlName="birthDate">
+                <div class="invalid-feedback">
+                  A data de nascimento é obrigatória
+                </div>        
+            </div>    
+          </div>
+        </form>
+        <br>
+        <!-- -->
+      </div>
+      <div class="modal-footer d-flex">
+        <button
+          class="btn btn-secondary"
+          (click)="template.hide()">
+            Fechar
+        </button>
+        <button
+          class="btn btn-primary ml-auto"
+          [disabled]="!registerForm.valid"
+          (click)="save()">
+            <i class="fa fa-home"></i>&nbsp;
+            Salvar alterações
+        </button>        
+      </div>
+    </div>
+  </div>
 </div>
