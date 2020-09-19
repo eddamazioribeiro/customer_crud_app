@@ -61,12 +61,6 @@
         </div>        
     </div>    
   </div>
-  <p>
-    Form value: {{registerForm.value | json}}
-  </p>
-  <p>
-    Form status: {{registerForm.status | json}}
-  </p>
 </form>
 <br>
 <button class="btn btn-primary" (click)="save()">
@@ -84,5 +78,15 @@
     <p>
       Cadastrado em: {{customer.createdAt | date: 'dd/MM/yyyy'}}
     </p>
+    <div class="bnt-group">
+      <button
+        class="btn btn-sm btn-outline-primary mr-2" tooltip="Editar">
+        <i class="fa fa-edit"></i>
+      </button>
+      <button
+        class="btn btn-sm btn-outline-danger mr-2" tooltip="Excluir">
+        <i class="fa fa-eraser"></i>
+      </button>
+    </div>
     <hr>    
 </div>
