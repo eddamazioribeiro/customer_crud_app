@@ -1,8 +1,8 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CustomerService } from '../_services/customer.service';
 import { Customer } from '../_models/Customer';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-list-customers',
@@ -15,7 +15,7 @@ export class ListCustomersComponent implements OnInit {
   customers: Customer[];
   customer: Customer;
   registerForm: FormGroup;
-  // modalRef: BsModalRef;
+  saveMode: string;
 
   constructor(
       private customerService: CustomerService,
@@ -28,7 +28,10 @@ export class ListCustomersComponent implements OnInit {
     this.getCustomers();
   }
 
-  createCustomer(template: any) {
+  newCustomer(template: any) {
+    this.saveMode = 'new';
+    this.openModal(template);
+
     if (this.registerForm.valid) {
       this.customer = Object.assign({}, this.registerForm.value);
       this.customerService.createCustomer(this.customer);
@@ -38,14 +41,74 @@ export class ListCustomersComponent implements OnInit {
     }
   }
 
-  editCustomer() {
+  editCustomer(customer, template: any) {
+    this.saveMode = 'edit';
+    this.openModal(template);
+    this.customer = customer;
 
+    console.log(this.customer.birthDate);
+
+    this.registerForm.patchValue(customer);
   }
 
-  openModal(customerId: number, template: any) {
-    this.registerForm.reset();
-    template.show();
-    console.log('abre modal');
+  deleteCustomer(customerId: number) {
+    this.customerService.deleteCustomer(customerId)
+    .subscribe(
+      data => {
+        this.getCustomers();
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  saveChanges(template: any) {
+    if (this.saveMode === 'new') {
+      if (this.registerForm.valid) {
+        this.customer = Object.assign({}, this.registerForm.value);
+        console.log(this.customer.birthDate);
+        this.customerService.createCustomer(this.customer)
+        .subscribe(
+          data => {
+            template.hide();
+            this.getCustomers();
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      }
+    } else {
+      if (this.registerForm.valid) {
+        this.customer = Object.assign({id: this.customer.id}, this.registerForm.value);
+        this.customerService.updateCustomer(this.customer)
+        .subscribe(
+          data => {
+            template.hide();
+            this.getCustomers();
+          },
+          error => {
+            console.log(error);
+          }
+        );
+      }
+    }
+  }
+
+  getCustomers() {
+    this.customerService.getAllCustomers()
+      .subscribe(
+        (_customers: Customer[]) => {
+          this.customers = _customers;
+      }, err => {
+        console.error(err);
+      });
+  }
+
+  openModal(template: any) {
+      this.registerForm.reset();
+      template.show();
   }
 
   formValidation() {
@@ -63,15 +126,5 @@ export class ListCustomersComponent implements OnInit {
         Validators.required
       ]]
     });
-  }
-
-  getCustomers() {
-    this.customerService.getAllCustomers()
-      .subscribe(
-        (_customers: Customer[]) => {
-          this.customers = _customers;
-      }, err => {
-        console.error(err);
-      });
   }
 }

@@ -23,24 +23,15 @@ export class CustomerService {
     return this.http.get<Customer[]>(`${this.baseURL}/list`);
   }
 
-  createCustomer(customer: Customer): boolean {
-    let success: boolean;
-    
-    this.http.post(`${this.baseURL}`, customer)
-      .subscribe(
-        data => {
-          if (data) {
-            success = true;
-          } else {
-            success = false;
-          }
-        },
-        error => {
-          console.log(error);
-          success = false;
-        }
-      );
+  createCustomer(customer: Customer) {
+    return this.http.post(`${this.baseURL}`, customer);
+  }
 
-    return success;
+  updateCustomer(customer: Customer) {
+    return this.http.put(`${this.baseURL}`, customer);
+  }
+
+  deleteCustomer(customerId: number) {
+    return this.http.delete(`${this.baseURL}/${customerId}`);
   }
 }

@@ -2,7 +2,7 @@
   <div>
     <button
       class="btn btn-outline-success"
-      (click)="openModal(null, template)">
+      (click)="newCustomer(template)">
       <i class="fa fa-plus-circle"></i>&nbsp;
         Novo cliente
     </button>
@@ -30,7 +30,7 @@
       Cadastrado em: {{customer.createdAt | date: 'dd/MM/yyyy'}}
     </p>
     <p>
-      Última atualização em: {{customer.createdAt | date: 'dd/MM/yyyy hh:mm a'}}
+      Última atualização em: {{customer.updatedAt | date: 'dd/MM/yyyy hh:mm a'}}
     </p>    
     <div class="bnt-group">
       <button
@@ -41,11 +41,13 @@
       <button
         class="btn btn-sm btn-outline-primary mr-2"
         tooltip="Editar"
-        (click)="openModal(customer.id, template)">
+        (click)="editCustomer(customer, template)">
         <i class="fa fa-edit"></i>
       </button>
       <button
-        class="btn btn-sm btn-outline-danger mr-2" tooltip="Excluir">
+        class="btn btn-sm btn-outline-danger mr-2"
+        tooltip="Excluir"
+        (click)="deleteCustomer(customer.id)">
         <i class="fa fa-eraser"></i>
       </button>
     </div>
@@ -139,7 +141,7 @@
         <button
           class="btn btn-primary ml-auto"
           [disabled]="!registerForm.valid"
-          (click)="createCustomer()">
+          (click)="saveChanges(template)">
             <i class="fa fa-home"></i>&nbsp;
             Salvar alterações
         </button>        
