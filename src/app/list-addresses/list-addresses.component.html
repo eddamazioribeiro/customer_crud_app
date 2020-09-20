@@ -1,13 +1,14 @@
 <div class="container">
   <div class="d-flex">
     <button
-      class="btn btn-outline-success"
+      class="btn btn-outline-success ml-2"
       (click)="newAddress(template)">
       <i class="fa fa-plus-circle"></i>&nbsp;
         Novo endereço
     </button>
     <button
-      class="btn btn-secondary ml-auto mr-4"
+      class="btn btn-secondary ml-auto mr-2"
+      tooltip="Voltar à listagem de clientes"
       routerLink="/customers">
       <i class="fa fa-address-book"></i>&nbsp;
         Voltar
@@ -17,33 +18,27 @@
   <hr>
   <div>
     <h3>
-      Endereços
+      Endereços - {{customerName}}
     </h3>
   </div>
   <hr>
   <div *ngFor='let address of addresses'>
       <p>
-        Rua: {{address.street}}
-      </p>
-      <p>
-        N°: {{address.number}}
-      </p>
-      <p>
-        CEP: {{address.zipCode}}
-      </p>
+        Rua: {{address.street}} - N°: {{address.number}}
+      </p>        
       <p>
         Complemento: {{address.complement}}
       </p>
       <p>
-        Cidade: {{address.city}}
+        Cidade: {{address.city}}, {{address.state}}
+      </p>   
+      <p>
+        CEP: {{address.zipCode}}
       </p>
-      <p>
-        Estado: {{address.state}}
-      </p>    
-      <p>
+      <p class="small">
         Cadastrado em: {{address.createdAt | date: 'dd/MM/yyyy'}}
       </p>
-      <p>
+      <p class="small">
         Última atualização em: {{address.updatedAt | date: 'dd/MM/yyyy hh:mm a'}}
       </p>           
       <div class="bnt-group">
@@ -183,6 +178,7 @@
               <div class="form-group col-md-6">
                 <label>CEP</label>
                 <input
+                  mask="00000-000"
                   type="text"
                   class="form-control"
                   [ngClass]="{'is-invalid': registerForm.get('zipCode').errors
@@ -195,11 +191,11 @@
                   </div>
                   <div *ngIf="registerForm.get('zipCode').hasError('minlength')
                     && registerForm.get('zipCode').touched" class="invalid-feedback">
-                    CEP inválido
+                    CEP inválido - formato correto: 00000-000
                   </div>
                   <div *ngIf="registerForm.get('zipCode').hasError('maxlength')
                     && registerForm.get('zipCode').touched" class="invalid-feedback">
-                    CEP inválido
+                    CEP inválido - formato correto: 00000-000
                   </div>                                                                  
               </div>    
             </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Address } from '../_models/Address';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AddressService } from '../_services/address.service';
+import { CustomerService } from '../_services/customer.service';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ActivatedRoute } from '@angular/router';
 
@@ -13,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ListAddressesComponent implements OnInit {
 
   customerId: number;
+  customerName: string;
   addresses: Address[];
   address: Address;
   registerForm: FormGroup;
@@ -22,6 +24,7 @@ export class ListAddressesComponent implements OnInit {
 
   constructor(
       private addressService: AddressService,
+      private customerService: CustomerService,
       private modalService: BsModalService,
       private fb: FormBuilder,
       private route: ActivatedRoute
@@ -37,6 +40,15 @@ export class ListAddressesComponent implements OnInit {
       });
 
     this.formValidation();
+    this.customerService.getCustomerById(this.customerId)
+      .subscribe(
+        customer => {
+          if (customer != null) {
+            this.customerName = customer.name;
+          }
+        }
+      );
+
     this.getAddresses(this.customerId);
     this.states = this.addressService.getStates();
   }

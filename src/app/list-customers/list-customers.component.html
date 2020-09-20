@@ -2,7 +2,7 @@
   <div class="d-flex">
     <div>
       <button
-        class="btn btn-outline-success"
+        class="btn btn-outline-success mr-2"
         (click)="newCustomer(template)">
         <i class="fa fa-plus-circle"></i>&nbsp;
           Novo cliente
@@ -27,10 +27,10 @@
       <p>
         Nascido em: {{customer.birthDate | date: 'dd/MM/yyyy'}}
       </p>    
-      <p>
+      <p class="small">
         Cadastrado em: {{customer.createdAt | date: 'dd/MM/yyyy'}}
       </p>
-      <p>
+      <p class="small">
         Última atualização em: {{customer.updatedAt | date: 'dd/MM/yyyy hh:mm a'}}
       </p>    
       <div class="bnt-group">
