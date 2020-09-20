@@ -17,6 +17,8 @@ export class ListAddressesComponent implements OnInit {
   address: Address;
   registerForm: FormGroup;
   saveMode: string;
+  states: any[];
+  selectedState: string;
 
   constructor(
       private addressService: AddressService,
@@ -36,6 +38,7 @@ export class ListAddressesComponent implements OnInit {
 
     this.formValidation();
     this.getAddresses(this.customerId);
+    this.states = this.addressService.getStates();
   }
 
   newAddress(template: any) {
@@ -63,6 +66,10 @@ export class ListAddressesComponent implements OnInit {
     );
   }
 
+  handleState(selectedState: string) {
+      this.selectedState = selectedState;
+  }
+
   saveChanges(template: any) {
     if (this.saveMode === 'new') {
       if (this.registerForm.valid) {
@@ -82,6 +89,8 @@ export class ListAddressesComponent implements OnInit {
     } else {
       if (this.registerForm.valid) {
         this.address = Object.assign({id: this.address.id}, this.registerForm.value);
+        this.address.state = this.selectedState;
+        console.log(this.address);
         this.addressService.updateAddress(this.address)
         .subscribe(
           data => {

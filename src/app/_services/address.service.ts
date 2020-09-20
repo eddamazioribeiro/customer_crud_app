@@ -12,6 +12,14 @@ export class AddressService {
 
   constructor(private http: HttpClient) { }
 
+  getStates(): any[] {
+    return [
+      'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO',
+      'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI',
+      'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO'
+    ];
+  }
+
   getUserAddresses(customerId: number): Observable<Address[]> {
     return this.http.get<Address[]>(`${this.baseURL}/list/${customerId}`);
   }

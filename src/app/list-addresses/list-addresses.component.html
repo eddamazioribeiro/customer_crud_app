@@ -1,218 +1,225 @@
-<div class="d-flex">
-  <button
-    class="btn btn-outline-success"
-    (click)="newAddress(template)">
-    <i class="fa fa-plus-circle"></i>&nbsp;
-      Novo endereço
-  </button>
-  <button
-    class="btn btn-primary ml-auto mr-4"
-    routerLink="/customers">
-    <i class="fa fa-address-book"></i>&nbsp;
-      Voltar
-  </button>
-</div>
-<!-- list customers -->
-<hr>
-<div>
-  <h3>
-    Endereços
-  </h3>
-</div>
-<hr>
-<div *ngFor='let address of addresses'>
-    <p>
-      Rua: {{address.street}}
-    </p>
-    <p>
-      N°: {{address.number}}
-    </p>
-    <p>
-      CEP: {{address.zipCode}}
-    </p>
-    <p>
-      Complemento: {{address.complement}}
-    </p>
-    <p>
-      Cidade: {{address.city}}
-    </p>
-    <p>
-      Estado: {{address.state}}
-    </p>    
-    <p>
-      Cadastrado em: {{address.createdAt | date: 'dd/MM/yyyy'}}
-    </p>
-    <p>
-      Última atualização em: {{address.updatedAt | date: 'dd/MM/yyyy hh:mm a'}}
-    </p>           
-    <div class="bnt-group">
-      <button
-        class="btn btn-sm btn-outline-primary mr-2"
-        tooltip="Editar"
-        (click)="editAddress(address, template)">
-        <i class="fa fa-edit"></i>
-      </button>
-      <button
-        class="btn btn-sm btn-outline-danger mr-2"
-        tooltip="Excluir"
-        (click)="deleteAddress(address.id)">
-        <i class="fa fa-eraser"></i>
-      </button>
-    </div>
-    <hr>    
-</div>
-<!-- Address form -->
-<div bsModal #template="bs-modal" class="modal fade" tabindex="-1"
-     role="dialog" aria-labelledby="dialog-sizes-name1">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4
-          id="dialog-sizes-name1"
-          class="modal-title pull-left">
-          Endereço
-        </h4>
-        <button type="button" class="close pull-right" (click)="template.hide()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+<div class="container">
+  <div class="d-flex">
+    <button
+      class="btn btn-outline-success"
+      (click)="newAddress(template)">
+      <i class="fa fa-plus-circle"></i>&nbsp;
+        Novo endereço
+    </button>
+    <button
+      class="btn btn-secondary ml-auto mr-4"
+      routerLink="/customers">
+      <i class="fa fa-address-book"></i>&nbsp;
+        Voltar
+    </button>
+  </div>
+  <!-- list customers -->
+  <hr>
+  <div>
+    <h3>
+      Endereços
+    </h3>
+  </div>
+  <hr>
+  <div *ngFor='let address of addresses'>
+      <p>
+        Rua: {{address.street}}
+      </p>
+      <p>
+        N°: {{address.number}}
+      </p>
+      <p>
+        CEP: {{address.zipCode}}
+      </p>
+      <p>
+        Complemento: {{address.complement}}
+      </p>
+      <p>
+        Cidade: {{address.city}}
+      </p>
+      <p>
+        Estado: {{address.state}}
+      </p>    
+      <p>
+        Cadastrado em: {{address.createdAt | date: 'dd/MM/yyyy'}}
+      </p>
+      <p>
+        Última atualização em: {{address.updatedAt | date: 'dd/MM/yyyy hh:mm a'}}
+      </p>           
+      <div class="bnt-group">
+        <button
+          class="btn btn-sm btn-outline-primary mr-2"
+          tooltip="Editar"
+          (click)="editAddress(address, template)">
+          <i class="fa fa-edit"></i>
+        </button>
+        <button
+          class="btn btn-sm btn-outline-danger mr-2"
+          tooltip="Excluir"
+          (click)="deleteAddress(address.id)">
+          <i class="fa fa-eraser"></i>
         </button>
       </div>
-      <div class="modal-body">
-        <form [formGroup]="registerForm">
-          <div class="form-row">
-            <div class="form-group col-md-10">
-              <label>Rua</label>
-              <input
-                type="text"
-                class="form-control"
-                [ngClass]="{'is-invalid': registerForm.get('street').errors
-                  && registerForm.get('street').touched}"
-                placeholder="informe a rua"
-                formControlName="street">
-              <div *ngIf="registerForm.get('street').hasError('required')
-                && registerForm.get('street').touched" class="invalid-feedback">
-                O campo Rua é obrigatório
+      <hr>    
+  </div>
+  <!-- Address form -->
+  <div bsModal #template="bs-modal" class="modal fade" tabindex="-1"
+       role="dialog" aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4
+            id="dialog-sizes-name1"
+            class="modal-title pull-left">
+            <i class="fa fa-home"></i>&nbsp;
+            Endereço
+          </h4>
+          <button type="button" class="close pull-right" (click)="template.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="registerForm">
+            <div class="form-row">
+              <div class="form-group col-md-10">
+                <label>Rua</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  [ngClass]="{'is-invalid': registerForm.get('street').errors
+                    && registerForm.get('street').touched}"
+                  placeholder="informe a rua"
+                  formControlName="street">
+                <div *ngIf="registerForm.get('street').hasError('required')
+                  && registerForm.get('street').touched" class="invalid-feedback">
+                  O campo Rua é obrigatório
+                </div>
+                <div *ngIf="registerForm.get('street').hasError('minlength')
+                  && registerForm.get('street').touched" class="invalid-feedback">
+                  O nome da Rua deve conter no mínimo 4 caracteres
+                </div>
+                <div *ngIf="registerForm.get('street').hasError('maxlength')
+                  && registerForm.get('street').touched" class="invalid-feedback">
+                  O nome da Rua deve conter no máximo 50 caracteres
+                </div>            
               </div>
-              <div *ngIf="registerForm.get('street').hasError('minlength')
-                && registerForm.get('street').touched" class="invalid-feedback">
-                O nome da Rua deve conter no mínimo 4 caracteres
-              </div>
-              <div *ngIf="registerForm.get('street').hasError('maxlength')
-                && registerForm.get('street').touched" class="invalid-feedback">
-                O nome da Rua deve conter no máximo 50 caracteres
+              <div class="form-group col-md-2">
+                <label>N°</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  [ngClass]="{'is-invalid': registerForm.get('number').errors
+                    && registerForm.get('number').touched}"
+                  formControlName="number">
+                <div *ngIf="registerForm.get('number').hasError('required')
+                  && registerForm.get('number').touched" class="invalid-feedback">
+                  O número deve ser informado
+                </div>          
               </div>            
             </div>
-            <div class="form-group col-md-2">
-              <label>N°</label>
-              <input
-                type="number"
-                class="form-control"
-                [ngClass]="{'is-invalid': registerForm.get('number').errors
-                  && registerForm.get('number').touched}"
-                formControlName="number">
-              <div *ngIf="registerForm.get('number').hasError('required')
-                && registerForm.get('number').touched" class="invalid-feedback">
-                O número deve ser informado
-              </div>          
-            </div>            
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-12">
-              <label>Complemento</label>
-              <input
-                type="text"
-                class="form-control"
-                [ngClass]="{'is-invalid': registerForm.get('complement').errors
-                  && registerForm.get('complement').touched}"
-                placeholder="informe o complemento do endereço"
-                formControlName="complement">
-              <div *ngIf="registerForm.get('street').hasError('minlength')
-                && registerForm.get('street').touched" class="invalid-feedback">
-                O Complemento deve conter no mínimo 4 caracteres
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label>Complemento</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  [ngClass]="{'is-invalid': registerForm.get('complement').errors
+                    && registerForm.get('complement').touched}"
+                  placeholder="informe o complemento do endereço"
+                  formControlName="complement">
+                <div *ngIf="registerForm.get('street').hasError('minlength')
+                  && registerForm.get('street').touched" class="invalid-feedback">
+                  O Complemento deve conter no mínimo 4 caracteres
+                </div>
+                <div *ngIf="registerForm.get('street').hasError('maxlength')
+                  && registerForm.get('street').touched" class="invalid-feedback">
+                  O Complemento deve conter no máximo 50 caracteres
+                </div>            
               </div>
-              <div *ngIf="registerForm.get('street').hasError('maxlength')
-                && registerForm.get('street').touched" class="invalid-feedback">
-                O Complemento deve conter no máximo 50 caracteres
-              </div>            
+            </div>           
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <label>Cidade</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  [ngClass]="{'is-invalid': registerForm.get('city').errors
+                    && registerForm.get('city').touched}"
+                  placeholder="informe a cidade"
+                  formControlName="city">
+                  <div *ngIf="registerForm.get('city').hasError('required')
+                    && registerForm.get('city').touched" class="invalid-feedback">
+                    A Cidade deve ser informada
+                  </div>
+                  <div *ngIf="registerForm.get('zipCode').hasError('minlength')
+                    && registerForm.get('city').touched" class="invalid-feedback">
+                    A Cidade deve conter no mínimo 4 caracteres
+                  </div>
+                  <div *ngIf="registerForm.get('zipCode').hasError('maxlength')
+                    && registerForm.get('city').touched" class="invalid-feedback">
+                    A Cidade deve conter no máximo 50 caracteres
+                  </div>                                                                  
+              </div>  
             </div>
-          </div>           
-          <div class="form-row">
-            <div class="form-group col-md-12">
-              <label>Cidade</label>
-              <input
-                type="text"
-                class="form-control"
-                [ngClass]="{'is-invalid': registerForm.get('city').errors
-                  && registerForm.get('city').touched}"
-                placeholder="informe a cidade"
-                formControlName="city">
-                <div *ngIf="registerForm.get('city').hasError('required')
-                  && registerForm.get('city').touched" class="invalid-feedback">
-                  A Cidade deve ser informada
-                </div>
-                <div *ngIf="registerForm.get('zipCode').hasError('minlength')
-                  && registerForm.get('city').touched" class="invalid-feedback">
-                  A Cidade deve conter no mínimo 4 caracteres
-                </div>
-                <div *ngIf="registerForm.get('zipCode').hasError('maxlength')
-                  && registerForm.get('city').touched" class="invalid-feedback">
-                  A Cidade deve conter no máximo 50 caracteres
-                </div>                                                                  
-            </div>  
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label>Estado</label>
-              <input
-                type="text"
-                class="form-control"
-                [ngClass]="{'is-invalid': registerForm.get('state').errors
-                  && registerForm.get('state').touched}"
-                placeholder="informe o estado"
-                formControlName="state">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>Estado</label>
+                <select
+                  class="form-control"
+                  formControlName="state"
+                  (change)="handleState($event.target.value)"
+                  [ngClass]="{'is-invalid': registerForm.get('state').errors
+                  && registerForm.get('state').touched}">
+                  <option *ngFor="let state of states"
+                    value= {{state}}>
+                    {{state}}
+                  </option>
+                </select>
                 <div *ngIf="registerForm.get('state').hasError('required')
                   && registerForm.get('state').touched" class="invalid-feedback">
                   O Estado deve ser informado
                 </div>                                                                  
-            </div>            
-            <div class="form-group col-md-6">
-              <label>CEP</label>
-              <input
-                type="text"
-                class="form-control"
-                [ngClass]="{'is-invalid': registerForm.get('zipCode').errors
-                  && registerForm.get('zipCode').touched}"
-                placeholder="00000-000"
-                formControlName="zipCode">
-                <div *ngIf="registerForm.get('zipCode').hasError('required')
-                  && registerForm.get('zipCode').touched" class="invalid-feedback">
-                  O CEP deve ser informado
-                </div>
-                <div *ngIf="registerForm.get('zipCode').hasError('minlength')
-                  && registerForm.get('zipCode').touched" class="invalid-feedback">
-                  CEP inválido
-                </div>
-                <div *ngIf="registerForm.get('zipCode').hasError('maxlength')
-                  && registerForm.get('zipCode').touched" class="invalid-feedback">
-                  CEP inválido
-                </div>                                                                  
-            </div>    
-          </div>
-        </form>
-        <br>
-      </div>
-      <div class="modal-footer d-flex">
-        <button
-          class="btn btn-secondary"
-          (click)="template.hide()">
-            Fechar
-        </button>
-        <button
-          class="btn btn-primary ml-auto"
-          [disabled]="!registerForm.valid"
-          (click)="saveChanges(template)">
-            <i class="fa fa-home"></i>&nbsp;
-            Salvar alterações
-        </button>        
+              </div>            
+              <div class="form-group col-md-6">
+                <label>CEP</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  [ngClass]="{'is-invalid': registerForm.get('zipCode').errors
+                    && registerForm.get('zipCode').touched}"
+                  placeholder="00000-000"
+                  formControlName="zipCode">
+                  <div *ngIf="registerForm.get('zipCode').hasError('required')
+                    && registerForm.get('zipCode').touched" class="invalid-feedback">
+                    O CEP deve ser informado
+                  </div>
+                  <div *ngIf="registerForm.get('zipCode').hasError('minlength')
+                    && registerForm.get('zipCode').touched" class="invalid-feedback">
+                    CEP inválido
+                  </div>
+                  <div *ngIf="registerForm.get('zipCode').hasError('maxlength')
+                    && registerForm.get('zipCode').touched" class="invalid-feedback">
+                    CEP inválido
+                  </div>                                                                  
+              </div>    
+            </div>
+          </form>
+          <br>
+        </div>
+        <div class="modal-footer d-flex">
+          <button
+            class="btn btn-secondary"
+            (click)="template.hide()">
+              Fechar
+          </button>
+          <button
+            class="btn btn-primary ml-auto"
+            [disabled]="!registerForm.valid"
+            (click)="saveChanges(template)">
+              <i class="fa fa-save"></i>&nbsp;
+              Salvar alterações
+          </button>        
+        </div>
       </div>
     </div>
   </div>
