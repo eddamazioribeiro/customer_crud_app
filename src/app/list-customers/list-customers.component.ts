@@ -31,22 +31,12 @@ export class ListCustomersComponent implements OnInit {
   newCustomer(template: any) {
     this.saveMode = 'new';
     this.openModal(template);
-
-    if (this.registerForm.valid) {
-      this.customer = Object.assign({}, this.registerForm.value);
-      this.customerService.createCustomer(this.customer);
-
-      template.hide();
-      this.getCustomers();
-    }
   }
 
   editCustomer(customer, template: any) {
     this.saveMode = 'edit';
     this.openModal(template);
     this.customer = customer;
-
-    console.log(this.customer.birthDate);
 
     this.registerForm.patchValue(customer);
   }
@@ -67,7 +57,6 @@ export class ListCustomersComponent implements OnInit {
     if (this.saveMode === 'new') {
       if (this.registerForm.valid) {
         this.customer = Object.assign({}, this.registerForm.value);
-        console.log(this.customer.birthDate);
         this.customerService.createCustomer(this.customer)
         .subscribe(
           data => {

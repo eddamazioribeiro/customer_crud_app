@@ -5,7 +5,7 @@ import { ListAddressesComponent } from './list-addresses/list-addresses.componen
 
 const routes: Routes = [
   { path: 'customers', component: ListCustomersComponent },
-  { path: 'addresses', component: ListAddressesComponent },
+  { path: 'addresses/:customerId', component: ListAddressesComponent },
   { path: '', redirectTo: 'customers', pathMatch: 'full' },
   { path: '**', redirectTo: 'customers' }
 ];
