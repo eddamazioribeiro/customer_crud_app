@@ -3,6 +3,7 @@ import { CustomerService } from '../_services/customer.service';
 import { Customer } from '../_models/Customer';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-list-customers',
@@ -16,6 +17,7 @@ export class ListCustomersComponent implements OnInit {
   customer: Customer;
   registerForm: FormGroup;
   saveMode: string;
+  datePipe: DatePipe;
 
   constructor(
       private customerService: CustomerService,
@@ -38,7 +40,11 @@ export class ListCustomersComponent implements OnInit {
     this.openModal(template);
     this.customer = customer;
 
+    this.datePipe = new DatePipe(navigator.language);
+    let birthDateAux = this.datePipe.transform(customer.birthDate, 'yyyy-MM-dd');
+
     this.registerForm.patchValue(customer);
+    this.registerForm.get('birthDate').patchValue(birthDateAux);
   }
 
   deleteCustomer(customerId: number) {
